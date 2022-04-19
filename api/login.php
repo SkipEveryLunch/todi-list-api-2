@@ -19,7 +19,30 @@ if(!array_key_exists("username",$data)||
       ]);
       exit;
     }
+    $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["DB_PASS"]);
+
+    $user_gateway = new UserGateway($database);
+    $user = $user_gateway->getByUsername($data["username"]);
+    if($user == false){
+      http_response_code(401);
+      echo json_encode([
+        "message" => "invalid authentication"
+      ]);
+      exit;
+    }
+    if(!password_verify($data["password"],$user["password_hash"])){
+      http_response_code(401);
+      echo json_encode([
+        "message" => "invalid authentication"
+      ]);
+      exit;
+    }
+    $payload = [
+      "id" => $user["id"],
+      "name" => $user["name"],
+    ];
+    $access_token = base64_encode(json_encode($payload));
     echo json_encode([
-      "message" => $data
+      "access_token"=>$access_token
     ]);
 ?>

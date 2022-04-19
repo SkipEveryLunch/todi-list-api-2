@@ -9,14 +9,14 @@ class UserGateway
         $this->conn = $database->getConnection();
     }
 
-    public function getByAPIKey(string $key){
+    public function getByAPIKey(string $api_key){
         $sql = "SELECT *
                 FROM user
                 WHERE api_key = :api_key";
                 
         $stmt = $this->conn->prepare($sql);
         
-        $stmt->bindValue(":api_key", $key, PDO::PARAM_STR);
+        $stmt->bindValue(":api_key", $api_key, PDO::PARAM_STR);
         
         $stmt->execute();
         
@@ -25,6 +25,21 @@ class UserGateway
         return $data;
     }
     
+    public function getByUsername(string $username){
+        $sql = "SELECT *
+                FROM user
+                WHERE username = :username";
+                
+        $stmt = $this->conn->prepare($sql);
+        
+        $stmt->bindValue(":username", $username, PDO::PARAM_STR);
+        
+        $stmt->execute();
+        
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $data;
+    }
     // public function getAll(): array
     // {
     //     $sql = "SELECT *
