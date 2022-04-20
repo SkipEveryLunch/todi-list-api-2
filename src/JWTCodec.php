@@ -1,5 +1,9 @@
 <?php
 class JWTCodec{
+  public $key;
+  public function __construct(string $key){
+    $this->key = $key;
+  }
   public function encode(array $payload):string{
     $header = json_encode([
       "typ" => "JWT",
@@ -10,7 +14,7 @@ class JWTCodec{
     $payload = $this->base64UrlEncode($payload);
     $signature = hash_hmac("sha256",
     $header . "." . $payload,
-    "5A7134743777217A25432A462D4A614E645266556A586E3272357538782F413F",true);
+    $this->key,true);
     $signature = $this->base64urlEncode($signature);
     return $header . "." . $payload . "." . $signature;
   }
@@ -20,7 +24,7 @@ class JWTCodec{
     }
     $signature = hash_hmac("sha256",
     $matches["header"] . "." . $matches["payload"],
-    "5A7134743777217A25432A462D4A614E645266556A586E3272357538782F413F",true);
+    $this->key,true);
     $signature_from_token = $this->base64UrlDecode($matches["signature"]);
     if(!hash_equals($signature,$signature_from_token)){
       throw new Exception("signature doesn't match");

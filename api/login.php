@@ -41,7 +41,7 @@ if(!array_key_exists("username",$data)||
       "id" => $user["id"],
       "name" => $user["name"],
     ];
-    $codec = new JWTCodec;
+    $codec = new JWTCodec($_ENV["SEACRET_KEY"]);
     $access_token = base64_encode($codec->encode($payload));
     echo json_encode([
       "access_token"=>$access_token
