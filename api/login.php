@@ -41,7 +41,8 @@ if(!array_key_exists("username",$data)||
       "id" => $user["id"],
       "name" => $user["name"],
     ];
-    $access_token = base64_encode(json_encode($payload));
+    $codec = new JWTCodec;
+    $access_token = base64_encode($codec->encode($payload));
     echo json_encode([
       "access_token"=>$access_token
     ]);
