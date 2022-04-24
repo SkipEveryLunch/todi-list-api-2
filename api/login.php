@@ -38,8 +38,9 @@ if(!array_key_exists("username",$data)||
       exit;
     }
     $payload = [
-      "id" => $user["id"],
+      "sub" => $user["id"],
       "name" => $user["name"],
+      "exp" => time() + $_ENV["TOKEN_EXPIRATION_TIME"]
     ];
     $codec = new JWTCodec($_ENV["SEACRET_KEY"]);
     // $access_token = base64_encode($codec->encode($payload));

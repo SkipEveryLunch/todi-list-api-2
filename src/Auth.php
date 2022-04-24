@@ -48,6 +48,12 @@ class Auth{
         "message"=>"Invalid signature"
       ]);
       return false;
+    }catch(TokenExpiredException $e){
+      http_response_code(401);
+      echo json_encode([
+        "message"=>"Token Expired"
+      ]);
+      return false;
     }catch(Exception $e){
       http_response_code(400);
       echo json_encode([
@@ -55,7 +61,7 @@ class Auth{
       ]);
       return false;
     }
-    $this->user_id = $data["id"];
+    $this->user_id = $data["sub"];
     return true;
   }
 }

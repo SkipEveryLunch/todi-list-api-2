@@ -30,6 +30,9 @@ class JWTCodec{
       throw new InvalidSignatureException("signature doesn't match");
     };
     $payload = json_decode($this->base64UrlDecode($matches["payload"]),true);
+    if($payload["exp"]<time()){
+      throw new TokenExpiredException;
+    }else
     return $payload;
   }
   private function base64UrlEncode(string $text):string{
