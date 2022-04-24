@@ -22,12 +22,13 @@ $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $
 
 $user_gateway = new UserGateway($database);
 
+$jwtcodec = new JWTCodec($_ENV["SEACRET_KEY"]);
 // var_dump($_SERVER["HTTP_AUTHORIZATION"]);
 // $headers = apache_request_headers();
 // echo $headers["Authorization"];
 // exit;
 
-$auth = new Auth($user_gateway);
+$auth = new Auth($user_gateway,$jwtcodec);
 
 if($auth->authenticateAccessToken()==false){
     exit;
