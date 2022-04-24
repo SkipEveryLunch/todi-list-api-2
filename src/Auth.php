@@ -42,6 +42,12 @@ class Auth{
     }
     try{
       $data = $this->jwtcodec->decode($matches[1]);
+    }catch(InvalidSignatureException $e){
+      http_response_code(401);
+      echo json_encode([
+        "message"=>"Invalid signature"
+      ]);
+      return false;
     }catch(Exception $e){
       http_response_code(400);
       echo json_encode([
