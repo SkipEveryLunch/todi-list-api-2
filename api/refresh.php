@@ -28,5 +28,13 @@ if(!array_key_exists("token",$data)){
     exit;
   }
   $user_id = $payload["sub"];
-  echo $user_id;
+  $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["DB_PASS"]);
+  $user_gateway = new UserGateway($database);
+  $user = $user_gateway->getById($user_id);
+  if($user==false){
+    http_response_code(401);
+    echo json_encode(["message"=>"invalid authentication"]);
+    exit;
+  }
+  var_dump($user);
 ?>
