@@ -43,8 +43,13 @@ if(!array_key_exists("username",$data)||
       "exp" => time() + $_ENV["TOKEN_EXPIRATION_TIME"]
     ];
     $codec = new JWTCodec($_ENV["SEACRET_KEY"]);
-    // $access_token = base64_encode($codec->encode($payload));
+    $access_token = $codec->encode($payload);
+    $refresh_token = $codec->encode([
+      "sub"=>$user["id"],
+      "exp"=>time()+432000
+    ]);
     echo json_encode([
-      "access_token"=>$codec->encode($payload)
+      "access_token"=>$access_token,
+      "refresh_token"=>$refresh_token
     ]);
 ?>
