@@ -37,19 +37,6 @@ if(!array_key_exists("username",$data)||
       ]);
       exit;
     }
-    $payload = [
-      "sub" => $user["id"],
-      "name" => $user["name"],
-      "exp" => time() + $_ENV["TOKEN_EXPIRATION_TIME"]
-    ];
     $codec = new JWTCodec($_ENV["SEACRET_KEY"]);
-    $access_token = $codec->encode($payload);
-    $refresh_token = $codec->encode([
-      "sub"=>$user["id"],
-      "exp"=>time()+432000
-    ]);
-    echo json_encode([
-      "access_token"=>$access_token,
-      "refresh_token"=>$refresh_token
-    ]);
+    require __DIR__ . "/tokens.php"
 ?>

@@ -36,5 +36,5 @@ if(!array_key_exists("token",$data)){
     echo json_encode(["message"=>"invalid authentication"]);
     exit;
   }
-  var_dump($user);
+  require __DIR__ . "/tokens.php"
 ?>
