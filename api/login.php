@@ -38,5 +38,8 @@ if(!array_key_exists("username",$data)||
       exit;
     }
     $codec = new JWTCodec($_ENV["SEACRET_KEY"]);
-    require __DIR__ . "/tokens.php"
+    require __DIR__ . "/tokens.php";
+
+    $refresh_token_gateway = new RefreshTokenGateway($database,$_ENV["SEACRET_KEY"]);
+    $refresh_token_gateway->create($refresh_token,$refresh_token_expiry);
 ?>
