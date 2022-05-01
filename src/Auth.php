@@ -7,31 +7,34 @@ class Auth{
     $this->gateway = $gateway;
     $this->jwtcodec = $jwtcodec;
   }
-  public function AuthenticateAPIKey():bool{
+  // public function AuthenticateAPIKey():bool{
 
-    if(empty($_SERVER["HTTP_X_API_KEY"])){
-      echo json_encode([
-        "message" => "missing API key"
-      ]);
-      return false;
-    }
+  //   if(empty($_SERVER["HTTP_X_API_KEY"])){
+  //     echo json_encode([
+  //       "message" => "missing API key"
+  //     ]);
+  //     return false;
+  //   }
 
-    $api_key = $_SERVER["HTTP_X_API_KEY"];
+  //   $api_key = $_SERVER["HTTP_X_API_KEY"];
 
-    $user = $this->gateway->getBYAPIKey($api_key);
+  //   $user = $this->gateway->getBYAPIKey($api_key);
 
-    if( $user == false){
-      echo json_encode([
-        "message" => "invalid API key"
-      ]);
-      return false;
-    }
-    $this->user_id = $user["id"];
-    return true;
-  }
+  //   if( $user == false){
+  //     echo json_encode([
+  //       "message" => "invalid API key"
+  //     ]);
+  //     return false;
+  //   }
+  //   $this->user_id = $user["id"];
+  //   return true;
+  // }
   public function getUserId():int{
     return $this->user_id;
   }
+  //HTTP_AUTHORIZATIONに乗って飛んでくるtokenの
+  //body部分をデコードし、
+  //取り出したuser_idをプロパティに格納する
   public function authenticateAccessToken():bool{
     if(!preg_match("/^Bearer\s+(.*)$/",$_SERVER["HTTP_AUTHORIZATION"],$matches)){
       http_response_code(400);
