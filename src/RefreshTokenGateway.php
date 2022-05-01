@@ -6,6 +6,16 @@
       $this->conn = $db->getConnection();
       $this->key = $key;
     }
+    public function getByToken(string $token){
+      $hash = hash_hmac("sha256",$token,$this->key);
+      $sql = "SELECT * FROM refresh_token
+      WHERE token_hash = :token_hash";
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bindValue(":token_hash",$hash,PDO::PARAM_STR);
+      $stmt->execute();  
+      $data = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $data;
+    }
     public function create(string $token, int $expiry){
       $hash = hash_hmac("sha256",$token,$this->key);
       $sql = "INSERT INTO refresh_token(token_hash,expires_at)
