@@ -35,5 +35,11 @@
       $stmt->execute();
       return $stmt->rowCount();
     }
+    public function deleteExpired():int{
+      $sql = "DELETE FROM refresh_token
+      WHERE expires_at < UNIX_TIMESTAMP()";
+      $stms = $this->conn->query($sql);
+      return $stms->rowCount();
+    }
   }
 ?>
