@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 require __DIR__ . "/bootstrap.php";
 
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: *");
+if ($_SERVER['REQUEST_METHOD'] == "OPTIONS") {
+header("HTTP/1.1 200 OK");
+die();
+}
+
 $path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
 $parts = explode("/", $path);
