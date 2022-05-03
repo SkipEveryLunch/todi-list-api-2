@@ -24,6 +24,9 @@
     exit;
   }
   var_dump(getenv('DB_NAME'));
+  var_dump(getenv('DB_USER'));
+  var_dump(getenv('DB_PASS'));
+
   $database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASS'));
 
   $user_gateway = new UserGateway($database);
