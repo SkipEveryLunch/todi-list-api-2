@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $dotenv->load();
     
     $database = new Database($_ENV["DB_HOST"],
-                             $_ENV["DB_NAME"],
+                             getenv('DB_NAME'),
                              $_ENV["DB_USER"],
                              $_ENV["DB_PASS"]);
                              

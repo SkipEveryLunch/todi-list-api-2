@@ -37,7 +37,7 @@ if(!array_key_exists("token",$data)){
     exit;
   }
   $user_id = $payload["sub"];
-  $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["DB_PASS"]);
+  $database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), $_ENV["DB_USER"], $_ENV["DB_PASS"]);
   $refresh_token_gateway = new RefreshTokenGateway($database,$_ENV["SEACRET_KEY"]);
 
   $refresh_token = $refresh_token_gateway->getByToken($data["token"]);

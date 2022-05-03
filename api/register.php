@@ -26,7 +26,7 @@
     ]);
     exit;
   }
-  $database = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["DB_PASS"]);
+  $database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), $_ENV["DB_USER"], $_ENV["DB_PASS"]);
 
   $conn = $database->getConnection();
 
