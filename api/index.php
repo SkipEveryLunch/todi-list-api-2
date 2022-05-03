@@ -16,9 +16,9 @@ $path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
 $parts = explode("/", $path);
 
-$resource = $parts[3];
+$resource = $parts[2];
 
-$id = $parts[4] ?? null;
+$id = $parts[3] ?? null;
 
 if ($resource != "tasks") {
     
