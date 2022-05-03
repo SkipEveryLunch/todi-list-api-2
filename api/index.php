@@ -26,11 +26,11 @@ if ($resource != "tasks") {
     exit;
 }
 
-$database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), $_ENV["DB_USER"], $_ENV["DB_PASS"]);
+$database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASS'));
 
 $user_gateway = new UserGateway($database);
 
-$jwtcodec = new JWTCodec($_ENV["SEACRET_KEY"]);
+$jwtcodec = new JWTCodec(getenv("SEACRET_KEY"));
 
 $auth = new Auth($user_gateway,$jwtcodec);
 

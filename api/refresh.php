@@ -26,7 +26,7 @@ if(!array_key_exists("token",$data)){
     ]);
     exit;
   }
-  $codec = new JWTCodec($_ENV["SEACRET_KEY"]);
+  $codec = new JWTCodec(getenv("SEACRET_KEY"));
   try{
     $payload = $codec->decode($data["token"]);
   }catch(Exception $e){
@@ -37,8 +37,8 @@ if(!array_key_exists("token",$data)){
     exit;
   }
   $user_id = $payload["sub"];
-  $database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), $_ENV["DB_USER"], $_ENV["DB_PASS"]);
-  $refresh_token_gateway = new RefreshTokenGateway($database,$_ENV["SEACRET_KEY"]);
+  $database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASS'));
+  $refresh_token_gateway = new RefreshTokenGateway($database,getenv("SEACRET_KEY"));
 
   $refresh_token = $refresh_token_gateway->getByToken($data["token"]);
   

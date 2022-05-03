@@ -9,8 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     $database = new Database($_ENV["DB_HOST"],
                              getenv('DB_NAME'),
-                             $_ENV["DB_USER"],
-                             $_ENV["DB_PASS"]);
+                             getenv('DB_USER'),
+                             getenv('DB_PASS'));
                              
     $conn = $database->getConnection();
     

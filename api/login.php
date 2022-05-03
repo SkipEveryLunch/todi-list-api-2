@@ -23,7 +23,7 @@
     ]);
     exit;
   }
-  $database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), $_ENV["DB_USER"], $_ENV["DB_PASS"]);
+  $database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASS'));
 
   $user_gateway = new UserGateway($database);
   $user = $user_gateway->getByUsername($data["username"]);
@@ -42,9 +42,9 @@
     ]);
     exit;
   }
-  $codec = new JWTCodec($_ENV["SEACRET_KEY"]);
+  $codec = new JWTCodec(getenv("SEACRET_KEY"));
   require __DIR__ . "/tokens.php";
 
-  $refresh_token_gateway = new RefreshTokenGateway($database,$_ENV["SEACRET_KEY"]);
+  $refresh_token_gateway = new RefreshTokenGateway($database,getenv("SEACRET_KEY"));
   $refresh_token_gateway->create($refresh_token,$refresh_token_expiry);
 ?>
