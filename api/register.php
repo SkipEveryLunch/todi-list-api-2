@@ -40,8 +40,14 @@
   $stmt->bindValue(":username", $data["username"], PDO::PARAM_STR);
   $stmt->bindValue(":password_hash", $password_hash, PDO::PARAM_STR);
 
-  $stmt->execute();
+  try{
+    $stmt->execute();
 
-  echo "Successfully registered";
-  exit;
+    echo "Successfully registered";
+    exit;
+  }catch(Exception $e){
+    http_response_code(409);
+    echo "Error Occurred during registeration";
+    exit;
+  }
 ?>
