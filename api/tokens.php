@@ -11,7 +11,7 @@ $refresh_token = $codec->encode([
   'exp'=>$refresh_token_expiry
 ]);
 echo json_encode([
-  'access_token'=>$access_token,
+  'access_tokenn'=>$access_token,
   'refresh_token'=>$refresh_token
 ]);
 ?>
