@@ -10,8 +10,8 @@ $refresh_token = $codec->encode([
   'sub'=>$user['id'],
   'exp'=>$refresh_token_expiry
 ]);
-echo json_encode([
-  'access_tokenn'=>$access_token,
+echo [
+  'access_token'=>$access_token,
   'refresh_token'=>$refresh_token
-]);
+];
 ?>
