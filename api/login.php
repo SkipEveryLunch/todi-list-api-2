@@ -23,11 +23,8 @@
     ]);
     exit;
   }
-  $dbName = getenv('DB_NAME');
-  $dbUser = getenv('DB_USER');
-  $dbPass = getenv('DB_PASS');
-
-  $database = new Database($_ENV["DB_HOST"], $dbName, $dbUser, $dbPass);
+ 
+  $database = new Database($_ENV["DB_HOST"], getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASS'));
 
   $user_gateway = new UserGateway($database);
   $user = $user_gateway->getByUsername($data["username"]);
